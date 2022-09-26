@@ -1,11 +1,8 @@
 #include <iostream>
-
 #include "myfunctions.h"
 
-/*
-	Don't include the entire std library:
-	using namespace std;
-*/
+// Don't include the entire std library:
+// using namespace std;
 
 // Just include the ones you need
 using std::cin;
