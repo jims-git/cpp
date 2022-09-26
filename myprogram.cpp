@@ -7,7 +7,7 @@
 	using namespace std;
 */
 
-// Just inclue the ones you need
+// Just include the ones you need
 using std::cin;
 using std::cout;
 using std::endl;
