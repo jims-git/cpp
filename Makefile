@@ -1,35 +1,59 @@
-# https://www.youtube.com/watch?v=20GC9mYoFGs
-# Makefile myprogram.cpp myfunctions.cpp myfunctions.h
+# Thanks to https://www.youtube.com/watch?v=DtGrdB8wQ_8
+# for instructionsS
 
-# The compiler: gcc for C program, define as g++ for C++
-CC = g++
- 
-# compiler flags:
-#  -g     - this flag adds debugging information to the executable file
-#  -Wall  - this flag is used to turn on most compiler warnings
-CFLAGS  = -g -Wall
- 
-# The application name
-TARGET = myprogram
+# Name of application
+BINARY=myApp
 
-# Make will launch the first Target, in this case all:
-# all: depends upon the "myprogram" target
-# .PHONY will make the "all" & "clean" be targets,
-# in case there are actual files named all or clean.
-.PHONY: all
-all: $(TARGET)
+# Look in these directories for src files
+CODEDIRS=. lib
 
-# Automatic Variable $@ = filename of the target of the rule.
-# Notice in the command line, "myprogram" is replaced with $@
-#myprogram: myprogram.o myfunctions.o
-#	g++ -o myprogram myprogram.o myfunctions.o
-#              ---------
-$(TARGET): myprogram.o myfunctions.o
-	$(CC) $(CFLAGS) -o $@ $^
-	
-%.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+# Look in these directories for .h files
+INCDIRS=. ./include/ # can be list
 
-.PHONY: clean	
+CC=g++ # for c files use gcc, for c++ use g++
+
+OPT=-O0
+
+# generate files that encode make rules for the .h dependencies
+DEPFLAGS=-MP -MD
+
+# automatically add the -I onto each include directory
+CFLAGS=-Wall -Wextra -g $(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEPFLAGS)
+
+# for-style iteration (foreach) and regular expression completions (wildcard)
+CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.cpp))
+
+# regular expression replacement
+OBJECTS=$(patsubst %.cpp,%.o,$(CFILES))
+DEPFILES=$(patsubst %.cpp,%.d,$(CFILES))
+
+all: $(BINARY)
+
+$(BINARY): $(OBJECTS)
+	$(CC) -o $@ $^
+
+# only want the .c file dependency here, thus $< instead of $^.
+#
+%.o:%.cpp
+	$(CC) $(CFLAGS) -c -o $@ $<
+
 clean:
-	rm -f $(TARGET) *.out *.o
+	rm -rf $(BINARY) $(OBJECTS) $(DEPFILES) dist.tgz
+
+# shell commands are a set of keystrokes away
+distribute: clean
+	tar zcvf dist.tgz *
+
+# @ silences the printing of the command
+# $(info ...) prints output
+diff:
+	$(info The status of the repository, and the volume of per-file changes:)
+	@git status
+	@git diff --stat
+
+# include the dependencies
+-include $(DEPFILES)
+
+# add .PHONY so that the non-targetfile - rules work even if a file with the same name exists.
+.PHONY: all clean distribute diff
+
