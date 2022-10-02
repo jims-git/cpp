@@ -1,5 +1,6 @@
-# Thanks to https://www.youtube.com/watch?v=DtGrdB8wQ_8
-# for instructionsS
+# Thanks to https://www.youtube.com/watch?v=DtGrdB8wQ_8 for instructions.
+
+# My Github : https://github.com/jims-git/cpp
 
 # STEP 1: Name of application
 BINARY=myApp
@@ -7,7 +8,8 @@ BINARY=myApp
 # STEP 2: for c files use gcc, for c++ use g++
 CC=g++
 
-# Nothing to modif below this line
+# Nothing to modify below this line
+# ---------------------------------
 
 # Use c or cpp file extentions
 ifeq ($(CC), gcc)
