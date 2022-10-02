@@ -1,4 +1,5 @@
 # Thanks to https://www.youtube.com/watch?v=DtGrdB8wQ_8 for instructions.
+# Also https://www.youtube.com/watch?v=20GC9mYoFGs explains Auto Variables.
 
 # My Github : https://github.com/jims-git/cpp
 
@@ -43,11 +44,41 @@ DEPFILES=$(patsubst %.$(EXTEN),%.d,$(CFILES))
 
 all: $(BINARY)
 
+# Automatic Variables
+# -------------------																																
+# $@ = Target Name (LEFT side of the :)
+#
+# ie:
+#	mymain:main.o lib.o
+#		g++ -o mymain main.o lib.o
+#			can be written as
+#		g++ -o $@ main.o lib.o
+
+
+# Automatic Variables
+# -------------------																																
+# $^ = The name of the all prerequisites (RIGHT side of the :)
+#
+# ie:
+#	mymain:main.o lib.o
+#		g++ -o mymain main.o lib.o
+#			can be written as
+#		g++ -o $@ $^
 $(BINARY): $(OBJECTS)
 	$(CC) -o $@ $^
 
+
 # only want the .c file dependency here, thus $< instead of $^.
 #
+# Automatic Variables
+# -------------------																																
+# $< = The name of the FIRST prerequisite (RIGHT side of the :)
+#
+# ie:
+#	mymain:main.o lib.o
+#		g++ -o mymain main.o lib.o
+#			can be written as
+#		g++ -o $@ $< lib.o
 %.o:%.$(EXTEN)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
@@ -70,4 +101,27 @@ diff:
 
 # add .PHONY so that the non-targetfile - rules work even if a file with the same name exists.
 .PHONY: all clean distribute diff
+
+# RECAP
+# Automatic Variables
+# -------------------
+# 
+# $@ = Target Name (LEFT side of the :)
+# $< = The name of the FIRST prerequisite (RIGHT side of the :)
+# $^ = The name of the all prerequisites (RIGHT side of the :)																														
+# % = use the TARGET name (TARGET=main so main.o:main.c is %.o:%.c)
+#
+# ie:
+#	.PHONY: all clean
+#	all: main
+
+#	main: main.o lib.o
+#		gcc -o $@ $^
+#
+# Compile all of the .o files from the .c files
+#	%.o:%.c
+#		gcc -c $< -o $@
+#
+#	clean:
+#		rm -f *.o main
 
