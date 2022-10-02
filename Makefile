@@ -4,13 +4,17 @@
 # Name of application
 BINARY=myApp
 
+# for c files use gcc, for c++ use g++
+CC=g++
+
+# Use c or cpp
+EXTEN=cpp
+
 # Look in these directories for src files
 CODEDIRS=. lib
 
 # Look in these directories for .h files
 INCDIRS=. ./include/ # can be list
-
-CC=g++ # for c files use gcc, for c++ use g++
 
 OPT=-O0
 
@@ -21,11 +25,11 @@ DEPFLAGS=-MP -MD
 CFLAGS=-Wall -Wextra -g $(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEPFLAGS)
 
 # for-style iteration (foreach) and regular expression completions (wildcard)
-CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.cpp))
+CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.$(EXTEN)))
 
 # regular expression replacement
-OBJECTS=$(patsubst %.cpp,%.o,$(CFILES))
-DEPFILES=$(patsubst %.cpp,%.d,$(CFILES))
+OBJECTS=$(patsubst %.$(EXTEN),%.o,$(CFILES))
+DEPFILES=$(patsubst %.$(EXTEN),%.d,$(CFILES))
 
 all: $(BINARY)
 
