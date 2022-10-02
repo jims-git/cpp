@@ -1,21 +1,22 @@
 # Thanks to https://www.youtube.com/watch?v=DtGrdB8wQ_8
 # for instructionsS
 
-# Name of application
+# STEP 1: Name of application
 BINARY=myApp
 
-# for c files use gcc, for c++ use g++
+# STEP 2: for c files use gcc, for c++ use g++
 CC=g++
+
+# Nothing to modif below this line
 
 # Use c or cpp file extentions
 ifeq ($(CC), gcc)
- $(info C program)
+ $(info Makefile for C program)
  EXTEN=c
 else
- $(info C++ program)
+ $(info Makefile for C++ program)
  EXTEN=cpp
 endif
-
 
 # Look in these directories for src files
 CODEDIRS=. lib
@@ -45,7 +46,7 @@ $(BINARY): $(OBJECTS)
 
 # only want the .c file dependency here, thus $< instead of $^.
 #
-%.o:%.cpp
+%.o:%.$(EXTEN)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
