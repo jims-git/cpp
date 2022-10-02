@@ -7,8 +7,15 @@ BINARY=myApp
 # for c files use gcc, for c++ use g++
 CC=g++
 
-# Use c or cpp
-EXTEN=cpp
+# Use c or cpp file extentions
+ifeq ($(CC), gcc)
+ $(info C program)
+ EXTEN=c
+else
+ $(info C++ program)
+ EXTEN=cpp
+endif
+
 
 # Look in these directories for src files
 CODEDIRS=. lib
