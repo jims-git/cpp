@@ -22,11 +22,13 @@ targetName : dependency
 <br>
 Once all of the dependencies are satisfied, then the commands will be executed.
 <br>
+
 # STEP 1: Name of application
 <pre><code>
 <b>BINARY=myApp</b>
 </code></pre>
 <br>
+
 # STEP 2: for c files use gcc, for c++ use g++
 <br>
 <pre><code>
@@ -34,6 +36,7 @@ Once all of the dependencies are satisfied, then the commands will be executed.
 </code></pre>
 <br>
 <br>
+
 # Nothing to modify below this line
 <hr>
 If CC == gcc then this will be a C program, so set EXTEN=c to search for .c files.<br>
@@ -54,6 +57,7 @@ else
 endif
 </code></pre>
 <br>
+
 # Project Structure
 <hr>
 <pre><code>
@@ -103,6 +107,7 @@ ie: CFILES=./myprogram.cpp ./lib/myfunctions.cpp<br>
 <b>CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.$(EXTEN)))</b>
 </code></pre>
 <br>
+
 # Regular Expression replacement.
 This is a little difficult to read.<br>
 To create a LIST of OBJECTS (.o), we are pattern substituting<br> 
@@ -116,6 +121,7 @@ ie: DEPFILES=./myprogram.d ./lib/myfunctions.d<br>
 <b>DEPFILES=$(patsubst %.$(EXTEN),%.d,$(CFILES))</b><br>
 </code></pre>
 <br>
+
 # Begin TARGETS
 <br>
 Default first target is called 'all'.<br>
@@ -207,6 +213,7 @@ a file with the same name exists.<br>
 <b>.PHONY: all clean distribute diff</b>
 </code></pre>
 <br>
+
 # RECAP
 Automatic Variables<br>
 -------------------<br>
