@@ -34,7 +34,7 @@ Once all of the dependencies are satisfied, then the commands will be executed.
 </code></pre>
 <br>
 <br>
-# Nothing to modify below this line<br>
+# Nothing to modify below this line
 <hr>
 If CC == gcc then this will be a C program, so set EXTEN=c to search for .c files.<br>
 else<br>
@@ -68,28 +68,40 @@ endif
  </code></pre>
 <br>
 Look in these directories for .cpp files<br>
-<b>CODEDIRS=. lib</b><br>
+<pre><code>
+<b>CODEDIRS=. lib</b>
+</code></pre>
 <br>
 Look in these directories for .h files<br>
+<pre><code>
 <b>INCDIRS=. ./include/ # can be list</b><br>
+</code></pre>
 <br>
 Not sure what this argument is used for.<br>
+<pre><code>
 <b>OPT=-O0</b><br>
+</code></pre>
 <br>
 Magic argument to generate files that encode make rules for the .h dependencies.<br>
 It will read the source files, looking for #include .h files, and if these<br>
 files are changed, the source file will be recompiled.<br>
-<b>DEPFLAGS=-MP -MD</b><br>
+<pre><code>
+<b>DEPFLAGS=-MP -MD</b>
+</code></pre>
 <br>
 automatically add the -I onto each include directory<br>
+<pre><code>
 <b>CFLAGS=-Wall -Wextra -g $(foreach D,$(INCDIRS),-I$(D)) $(STD) $(OPT) $(DEPFLAGS)</b><br>
+</code></pre>
 <br>
 for-style iteration (foreach) and regular expression completions (wildcard)<br>
 For each D in $(CODEDIRS)<br>
 find all the .cpp files (or if gcc then all the .c files)<br>
 <br>
 ie: CFILES=./myprogram.cpp ./lib/myfunctions.cpp<br>
-<b>CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.$(EXTEN)))</b><br>
+<pre><code>
+<b>CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.$(EXTEN)))</b>
+</code></pre>
 <br>
 # Regular Expression replacement.
 This is a little difficult to read.<br>
@@ -99,14 +111,18 @@ ie: OBJECTS=./myprogram.o ./lib/myfunctions.o<br>
 To create a LIST of DEPFILES (.d), we are pattern substituting<br> 
 any .cpp files in $(CFILES) into .d files.<br>
 ie: DEPFILES=./myprogram.d ./lib/myfunctions.d<br>
+<pre><code>
 <b>OBJECTS=$(patsubst %.$(EXTEN),%.o,$(CFILES))</b><br>
 <b>DEPFILES=$(patsubst %.$(EXTEN),%.d,$(CFILES))</b><br>
+</code></pre>
 <br>
 # Begin TARGETS
 <br>
 Default first target is called 'all'.<br>
 It has a dependency target called $(BINARY) aka myApp<br>
-<b>all: $(BINARY)</b><br>
+<pre><code>
+<b>all: $(BINARY)</b>
+</code></pre>
 <br>
 Automatic Variables<br>
 -------------------<br>																	<br>															
@@ -132,8 +148,10 @@ Second TARGET is called $(BINARY) aka myApp and has a<br>
 dependency of all the .o files.<br>
 for each item in OBJECTS, it will look for %.o TARGET and build the .o<br>
 Once all the .o's are built, then it will compile the final binary.<br>
-<b>$(BINARY): $(OBJECTS)</b><br>
-<b>	$(CC) -o $@ $^</b><br>
+<pre><code>
+<b>$(BINARY): $(OBJECTS)
+	$(CC) -o $@ $^</b>
+</code></pre>
 <br>
 <br>
 only want the .c file dependency here, thus $< instead of $^.<br>
@@ -150,32 +168,44 @@ mymain:main.o lib.o<br>
 <br>
 This is the third TARGET. It will build all the .o files from the .cpp<br>
 % = use the TARGET name (TARGET=main so main.o:main.c is %.o:%.c)<br>
-<b>%.o:%.$(EXTEN)</b><br>
-<b>	$(CC) $(CFLAGS) -c -o $@ $<</b><br>
+<pre><code>
+<b>%.o:%.$(EXTEN)
+	$(CC) $(CFLAGS) -c -o $@ $<</b>
+</code></pre>
 <br>
-<b>clean:</b><br>
-<b>	rm -rf $(BINARY) $(OBJECTS) $(DEPFILES) dist.tgz</b><br>
+<pre><code>
+<b>clean:
+	rm -rf $(BINARY) $(OBJECTS) $(DEPFILES) dist.tgz</b>
+</code></pre>
 <br>
 shell commands are a set of keystrokes away.<br>
 This target will first run make clean, and then tarball the directory.<br>
-<b>distribute: clean</b><br>
-<b>	tar zcvf dist.tgz *</b><br>
+<pre><code>
+<b>distribute: clean
+	tar zcvf dist.tgz *</b>
+</code></pre>
 <br>
 @ silences the printing of the command<br>
 $(info <user_defined_message>) prints output<br>
-<b>diff:</b><br>
-<b>	$(info The status of the repository, and the volume of per-file changes:)</b><br>
-<b>	@git status</b><br>
-<b>	@git diff --stat</b><br>
+<pre><code>
+<b>diff:
+	$(info The status of the repository, and the volume of per-file changes:)
+	@git status
+	@git diff --stat</b>
+</code></pre>
 <br>
 include the dependencies<br>
-<b>-include $(DEPFILES)</b><br>
+<pre><code>
+<b>-include $(DEPFILES)</b>
+</code></pre>
 <br>
 If there was a file called 'clean' and you tried to 'make clean'<br>
 you would be told that 'clean' is up to date, so nothing to do.<br>
 Add .PHONY so that the non-targetfile - rules work even if <br>
 a file with the same name exists.<br>
-<b>.PHONY: all clean distribute diff</b><br>
+<pre><code>
+<b>.PHONY: all clean distribute diff</b>
+</code></pre>
 <br>
 # RECAP
 Automatic Variables<br>
