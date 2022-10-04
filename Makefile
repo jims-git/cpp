@@ -33,11 +33,11 @@ CC=g++
 #
 # EXTEN == c or cpp file extensions
 ifeq ($(CC), gcc)
- $(info Makefile for C program)
+ $(info Makefile to build C program $(BINARY).)
  EXTEN=c
  STD=
 else
- $(info Makefile for C++ program)
+ $(info Makefile to build C++ program $(BINARY).)
  EXTEN=cpp
  STD=-std=c++20
 endif
@@ -150,7 +150,7 @@ distribute: clean
 	tar zcvf dist.tgz *
 
 # @ silences the printing of the command
-# $(info ...) prints output
+# $(info <user_defined_message>) prints output
 diff:
 	$(info The status of the repository, and the volume of per-file changes:)
 	@git status
