@@ -14,20 +14,27 @@ create all the targets.
 By default MAKE will run the first TARGET it finds, therefore it is
 standard practice to name the first TARGET "all".
 <br>
-TARGETS are defined as:<br><br>
-targetName : dependency<br>
-(tab)		commands<br>
+TARGETS are defined as:<br>
+<pre><code><b>
+targetName : dependency
+	(tab) commands
+</b></code></pre>
 <br>
-Once all of the dependencies are satisfied, then the commandsvwill be executed.
+Once all of the dependencies are satisfied, then the commands will be executed.
 <br>
 # STEP 1: Name of application
+<pre><code>
 <b>BINARY=myApp</b>
+</code></pre>
 <br>
-# STEP 2: for c files use gcc, for c++ use g++<br>
+# STEP 2: for c files use gcc, for c++ use g++
+<br>
+<pre><code>
 <b>CC=g++</b>
+</code></pre>
 <br>
 <br>
-#Nothing to modify below this line<br>
+# Nothing to modify below this line<br>
 <hr>
 If CC == gcc then this will be a C program, so set EXTEN=c to search for .c files.<br>
 else<br>
@@ -36,18 +43,20 @@ set the flag -std=c++20.<br>
 <br>
 EXTEN == c or cpp file extensions<br>
 <br>
-<b>ifeq ($(CC), gcc)<br>
- $(info Makefile to build C program $(BINARY).)<br>
- EXTEN=c<br>
- STD=<br>
-else<br>
- $(info Makefile to build C++ program $(BINARY).)<br>
- EXTEN=cpp<br>
- STD=-std=c++20<br>
-endif</b><br>
-<br><br>
-#Project Structure
+<pre><code><b>ifeq ($(CC), gcc)
+	$(info Makefile to build C program $(BINARY).)
+ 	EXTEN=c
+ 	STD=
+else
+ 	$(info Makefile to build C++ program $(BINARY).)
+ 	EXTEN=cpp
+ 	STD=-std=c++20
+endif
+</code></pre>
+<br>
+# Project Structure
 <hr>
+<pre><code>
  ├── include<br>
  │   └── myfunctions.h<br>
  ├── lib<br>
@@ -56,6 +65,7 @@ endif</b><br>
  ├── Makefile<br>
  ├── myprogram.cpp<br>
  └── README.md<br>
+ </code></pre>
 <br>
 Look in these directories for .cpp files<br>
 <b>CODEDIRS=. lib</b><br>
