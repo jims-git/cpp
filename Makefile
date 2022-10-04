@@ -7,8 +7,7 @@
 BINARY=myApp
 
 # STEP 2: for c files use gcc, for c++ use g++
-CC=gcc
-//CC=g++
+CC=g++
 
 # Nothing to modify below this line
 # ---------------------------------
