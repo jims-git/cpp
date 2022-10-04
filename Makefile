@@ -21,7 +21,7 @@ CODEDIRS=. lib
 # Look in these directories for .h files
 INCDIRS=. ./include/ # can be list
 
-# Not sure what this argument is used for.
+# Optimization
 OPT=-O0
 
 # Magic argument to generate files that encode make rules for the .h dependencies.
