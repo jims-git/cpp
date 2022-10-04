@@ -7,7 +7,8 @@
 BINARY=myApp
 
 # STEP 2: for c files use gcc, for c++ use g++
-CC=g++
+CC=gcc
+//CC=g++
 
 # Nothing to modify below this line
 # ---------------------------------
@@ -16,7 +17,7 @@ CC=g++
 ifeq ($(CC), gcc)
  $(info Makefile for C program)
  EXTEN=c
- STD=""
+ STD=
 else
  $(info Makefile for C++ program)
  EXTEN=cpp
