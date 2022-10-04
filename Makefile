@@ -4,6 +4,7 @@
 # My Github : https://github.com/jims-git/cpp
 
 # This is my attempt to build a "one-size-fits-all" Makefile.
+# 90% of this file is comments, feel free to remove them.
 # First step is to setup all the variables, the second step is to
 # create all the targets. 
 # By default MAKE will run the first TARGET it finds, therefore it is
@@ -26,7 +27,7 @@ CC=g++
 # ---------------------------------
 
 # If CC == gcc then this will be a C program, so set EXTEN=c to search for .c files.
-#else
+# else
 # this will be a C++ program, so set EXTEN=cpp to search for .cpp files, and
 # set the flag -std=c++20.
 #
