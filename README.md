@@ -81,7 +81,30 @@ Look in these directories for .h files<br>
 <b>INCDIRS=. ./include/ # can be list</b><br>
 </code></pre>
 <br>
-Not sure what this argument is used for.<br>
+
+# Optimization
+<hr>
+There are seven -O settings: -O0, -O1, -O2, -O3, -Os, -Og, and -Ofast. Only use one of them in /etc/portage/make.conf.<br>
+<br>
+With the exception of -O0, the -O settings each activate several additional flags, so be sure to read the GCC manual's chapter on optimization options to learn which flags are activated at each -O level, as well as some explanations as to what they do.<br>
+<br>
+Let us examine each optimization level:<br>
+<br>
+    -O0: This level (that is the letter "O" followed by a zero) turns off optimization entirely and is the default if no -O level is specified in CFLAGS or CXXFLAGS. This reduces compilation time and can improve debugging info, but some applications will not work properly without optimization enabled. This option is not recommended except for debugging purposes.<br>
+<br>
+    -O1: the most basic optimization level. The compiler will try to produce faster, smaller code without taking much compilation time. It is basic, but it should get the job done all the time.<br>
+<br>
+    -O2: A step up from -O1. The recommended level of optimization unless the system has special needs. -O2 will activate a few more flags in addition to the ones activated by -O1. With -O2, the compiler will attempt to increase code performance without compromising on size, and without taking too much compilation time. SSE or AVX may be utilized at this level but no YMM registers will be used unless -ftree-vectorize is also enabled.<br>
+<br>
+    -O3: the highest level of optimization possible. It enables optimizations that are expensive in terms of compile time and memory usage. Compiling with -O3 is not a guaranteed way to improve performance, and in fact, in many cases, can slow down a system due to larger binaries and increased memory usage. -O3 is also known to break several packages. Using -O3 is not recommended. However, it also enables -ftree-vectorize so that loops in the code get vectorized and will use AVX YMM registers.<br>
+<br>
+    -Os: optimizes code for size. It activates all -O2 options that do not increase the size of the generated code. It can be useful for machines that have extremely limited disk storage space and/or CPUs with small cache sizes.<br>
+<br>
+    -Og: In GCC 4.8, a new general optimization level, -Og, has been introduced. It addresses the need for fast compilation and a superior debugging experience while providing a reasonable level of runtime performance. Overall experience for development should be better than the default optimization level -O0. Note that -Og does not imply -g, it simply disables optimizations that may interfere with debugging.<br>
+<br>
+    -Ofast: New in GCC 4.7, consists of -O3 plus -ffast-math, -fno-protect-parens, and -fstack-arrays. This option breaks strict standards compliance, and is not recommended for use.<br>
+<br>
+As previously mentioned, -O2 is the recommended optimization level. If package compilation fails and while not using -O2, try rebuilding with that option. As a fallback option, try setting the CFLAGS and CXXFLAGS to a lower optimization level, such as -O1 or even -O0 -g2 -ggdb (for error reporting and checking for possible problems). <br>
 <pre><code>
 <b>OPT=-O0</b><br>
 </code></pre>
