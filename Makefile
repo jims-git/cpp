@@ -16,9 +16,11 @@ CC=g++
 ifeq ($(CC), gcc)
  $(info Makefile for C program)
  EXTEN=c
+ STD=""
 else
  $(info Makefile for C++ program)
  EXTEN=cpp
+ STD=-std=c++20
 endif
 
 # Look in these directories for src files
@@ -33,7 +35,7 @@ OPT=-O0
 DEPFLAGS=-MP -MD
 
 # automatically add the -I onto each include directory
-CFLAGS=-Wall -Wextra -g $(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEPFLAGS)
+CFLAGS=-Wall -Wextra -g $(foreach D,$(INCDIRS),-I$(D)) $(STD) $(OPT) $(DEPFLAGS)
 
 # for-style iteration (foreach) and regular expression completions (wildcard)
 CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.$(EXTEN)))

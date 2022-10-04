@@ -14,7 +14,11 @@ int main() {
 	int a=5;
 	int b=10;
 	int c=sumOfTwoNumbers(a, b);
-	cout << "Hello World!";
+	
+	auto result = (10 <=> 20) > 0;
+	
+	cout << "Result = " << result << endl;
+	cout << "\n\nHello World!";
 	cout << "\n\nc = " << c << endl;
 	cout << endl;
 	
