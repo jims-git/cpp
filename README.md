@@ -154,14 +154,14 @@ DEPFILES=$(patsubst %.$(EXTEN),%.d,$(CFILES))</code></pre>
 
 ### Begin TARGETS
 
-Default first target is called 'all'.
+#### Default first target is called 'all'.
 
 It has a prerequisite target called $(BINARY) aka myApp
 <pre><code>all: $(BINARY)</code></pre>
 
 
 
-Second TARGET is called $(BINARY) aka myApp and has a
+#### Second TARGET is called $(BINARY) aka myApp and has a
 
 prerequisite of all the .o files.
 
@@ -173,7 +173,7 @@ Once all the .o's are built, then it will compile the final binary.
 
 
 
-This is the third TARGET. It will build all the .o files from the .cpp
+#### This is the third TARGET. It will build all the .o files from the .cpp
 
 % = use the TARGET name (TARGET=main so main.o:main.c is %.o:%.c)
 
@@ -182,11 +182,13 @@ This is the third TARGET. It will build all the .o files from the .cpp
 
 
 
-Clean TARGET removes any generated files, leaving the SOURCE code.
+#### Clean TARGET removes any generated files, leaving the SOURCE code.
+
 <pre><code>clean:
         rm -rf $(BINARY) $(OBJECTS) $(DEPFILES) dist.tgz</code></pre>
 
-This target will first run make clean, and then tarball the directory.
+#### This target will first run make clean, and then tarball the directory.
+
 <pre><code>distribute: clean
         tar zcvf dist.tgz *</code></pre>
 
