@@ -45,7 +45,7 @@ EXTEN == c or cpp file extensions
 ifeq ($(CC), gcc)
         $(info Makefile to build C program $(BINARY).)
         EXTEN=c
-        STD=
+        STD=''
 else
         $(info Makefile to build C++ program $(BINARY).)
         EXTEN=cpp
