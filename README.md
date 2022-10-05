@@ -13,8 +13,8 @@ This is my attempt to build a "one-size-fits-all" Makefile.
 
 First step is to setup all the variables, the second step is to create all the targets. 
 By default MAKE will run the first TARGET it finds, therefore it is standard practice to name the first TARGET "all". 
-TARGETS are defined as:
 
+TARGETS are defined as:
 
 targetName :  prerequisites<br>
   (tab) commands
@@ -219,7 +219,7 @@ a file with the same name exists.
 </code></pre>
 
 
-### RECAP Automatic Variables
+### End of Makefile Code. RECAP Automatic Variables
 
 $@ = Target Name (LEFT side of the :)
 
@@ -240,6 +240,8 @@ main: main.o lib.o
 
 clean:
 	rm -f *.o main
+	
+================================================================
 
 $< = The name of the FIRST prerequisite (RIGHT side of the :)
 ie:
@@ -254,6 +256,8 @@ mymain:main.o lib.o
 	g++ -o mymain main.o lib.o
 		can be written as
 	g++ -o $@ main.o lib.o
+
+================================================================
 
 $^ = The name of the all prerequisites (RIGHT side of the :)
 ie:
