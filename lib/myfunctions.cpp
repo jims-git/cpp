@@ -29,3 +29,20 @@ void print(void *ptr, char type)
 		default :cout << "Unknown or unimplemented data type." << endl;
 	}
 }
+
+
+
+
+// Pointers to get multiple RETURNs from a function.
+// pointers to min and max are passed in and can be 
+// acceses from main.
+void getMinAndMax(int *numbers, int size, int *min, int *max)
+{
+	*min = *(numbers);
+	*max = *(numbers);
+	for(int i=1 ; i<size ; i++)
+	{
+		if( *(numbers+i) > *max) *max = *(numbers+i);
+		if( *(numbers+i) < *min) *min = *(numbers+i);
+	}
+}

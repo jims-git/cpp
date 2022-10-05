@@ -16,7 +16,8 @@ int main() {
 	int c=sumOfTwoNumbers(a, b);
 	
 	int *pA = &a;
-	int luckyNumbers[5] = {2,3,5,7,9};
+	int size = 5;
+	int luckyNumbers[size] = {2,3,5,7,9};
 
 	
 	auto result = (10 <=> 20) > 0;
@@ -36,6 +37,14 @@ int main() {
 	cout << "&luckyNumbers[0]            = " << &luckyNumbers[0] << endl;
 	cout << "luckyNumbers[2]    = " << luckyNumbers[2] << endl;
 	cout << "*(luckyNumbers+2)  = " << *(luckyNumbers+2) << endl;
+	cout << "luckyNumbers[" << size << "] = { ";
+	for(int i=0 ; i<size ; i++)
+		cout << luckyNumbers[i] << "   ";
+	cout << "}" << endl;
+	int min, max;
+	getMinAndMax(luckyNumbers, size, &min, &max);
+	cout << "The smallest value is " << min << endl;
+	cout << "The largest value is  " << max << endl;
 	cout << endl;
 	
 	int v;
