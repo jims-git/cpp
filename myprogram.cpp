@@ -62,9 +62,65 @@ int main() {
 	print(&pi, 'd');
 	cout << endl;
 	
+	/*
+	// Dynamic Arrays
+	// Make sure to free the memory when finished
+	int dynamicSize;
+	cout << "What size is the array ? ";
+	cin >> dynamicSize;
+	int *dynArray = new int[dynamicSize];
+	for(int i=0;i<dynamicSize;i++)
+	{
+		cout << "Array[" << i << "] = ";
+		cin >> dynArray[i];
+	}
+	for(int i=0;i<dynamicSize;i++)
+	{
+		cout << *(dynArray+i) << "  ";
+	}
+	cout << endl;
+	cout << endl;
+	delete[]dynArray;
+	dynArray=NULL; // safety 
+	*/
+	
+	
+	// Multi dim dynamic array
+	int rows, cols;
+	do
+	{
+		cout << "How many rows, cols (min rows=5 cols=6)? ";
+		cin >> rows >> cols;
+	}while( rows <= 4 || cols <= 5);
+	// create a pointer to an array of pointers
+	int **table = new int*[rows];
+	for(int i=0;i<rows;i++)
+	{
+		table[i]=new int[cols];
+		// clear this array setting evertything to zero
+		for(int j=0;j<cols;j++) table[i][j] = 0;
+	}
+	table[4][5] = 345;
+	cout << "table[4][5] = 345;" << endl;
+	for(int i=0;i<rows;i++)
+	{
+		for(int j=0;j<cols;j++) cout << table[i][j] << "  ";
+		cout << endl;
+	}
+	// finished with array of arrays of int[] so free
+	for(int i=0;i<rows;i++)
+	{
+		delete table[i];
+	}
+	delete[] table;
+	// all memory has been freed, so no point in saving the address for safety
+	table = NULL;
+	cout << endl;
+	
 	
 	string greet;
 	cout << "What is your name ? ";
+	cin.ignore(); // ignores \n that cin >> str has lefted (if user pressed enter key)
 	getline(cin, greet);
 	cout << "Thanks " << greet << endl;
 	
