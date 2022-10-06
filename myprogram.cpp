@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "myfunctions.h"
 
 // Don't include the entire std library:
@@ -12,6 +13,19 @@ using std::cout;
 using std::endl;
 using std::string;
 */
+
+// https://www.youtube.com/watch?v=kiUGf_Z08RQ
+
+class MyClass {
+	public:
+		MyClass(){
+			cout << "Constructor invoked" << endl;
+		}
+		~MyClass(){
+			cout << "Destructor invoked" << endl;
+		}
+};
+
 
 int main() {
 	int a=5;
@@ -154,6 +168,50 @@ int main() {
 	customSort(myNumbers, descend);
 	printNumbers(myNumbers);
 	cout << endl << endl;
+	
+	
+	
+	// Smart Pointers
+	cout << "Unique Pointer" << endl;
+	unique_ptr<int>unPtr1 = make_unique<int>(25);
+	cout << "*unPtr1 = " << *unPtr1 << endl;
+	// cannot share this pointer
+	// unique_ptr<int>unPtr2 = unPtr1; // will throw exception
+	// you can transfer ownership, which will make unPtr1 null
+	unique_ptr<int>unPtr2 = move(unPtr1);
+	cout << "*unPtr2 = " << *unPtr2 << endl;
+	//cout << *unPtr1 << endl; // Segmentation fault (core dumped)
+	
+	{
+		// new scope
+		unique_ptr<MyClass>unPtr3 = make_unique<MyClass>();
+		// going out of scope
+	}
+	
+	// Shared Pointers
+	// as they go out of scope the will be auto deallocated
+	{
+		shared_ptr<MyClass>shPtr1 = make_shared<MyClass>();
+		// show the number of shared pointers to MyClass
+		cout << "Shared count: " << shPtr1.use_count() << endl;
+		{
+			shared_ptr<MyClass>shPtr2 = shPtr1;
+			cout << "Shared count: " << shPtr1.use_count() << endl;
+		}
+		cout << "Shared count: " << shPtr1.use_count() << endl;
+	}
+	
+	
+	// Weak Pointers
+	// used to observe
+	// will not keep an object alive
+	weak_ptr<int>wePtr1;
+	{
+		shared_ptr<int>shPtr1 = make_shared<int>(25);
+		wePtr1 = shPtr1;
+	}
+	// wePtr1 is expired at this time
+	
 	
 	
 	
