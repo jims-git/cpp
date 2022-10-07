@@ -4,15 +4,21 @@
 #include "myfunctions.h"
 
 // Don't include the entire std library:
-using namespace std;
+// using namespace std;
 
 // Just include the ones you need
-/*
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
-*/
+using std::shared_ptr;
+using std::unique_ptr;
+using std::weak_ptr;
+using std::make_shared;
+using std::make_unique;
+
+
+
 
 // https://www.youtube.com/watch?v=kiUGf_Z08RQ
 
@@ -104,11 +110,15 @@ int main() {
 	
 	// Multi dim dynamic array
 	int rows, cols;
+	/*
 	do
 	{
 		cout << "How many rows, cols (min rows=5 cols=6)? ";
 		cin >> rows >> cols;
 	}while( rows <= 4 || cols <= 5);
+	*/
+	rows = 25;
+	cols = 25;
 	// create a pointer to an array of pointers
 	int **table = new int*[rows];
 	for(int i=0;i<rows;i++)
@@ -215,13 +225,14 @@ int main() {
 	
 	
 	
-	
+	/*
 	cout << endl << endl;
 	string greet;
 	cout << "What is your name ? ";
 	cin.ignore(); // ignores \n that cin >> str has lefted (if user pressed enter key)
 	getline(cin, greet);
 	cout << "Thanks " << greet << endl;
+	*/
 	
 	return 0;
 }

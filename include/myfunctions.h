@@ -1,4 +1,6 @@
-using namespace std;
+// using namespace std;
+using std::vector;
+using std::swap;
 
 
 // Header Guard

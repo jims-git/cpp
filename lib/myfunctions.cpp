@@ -2,13 +2,13 @@
 #include <vector>
 #include "myfunctions.h"
 
-using namespace std;
-/*
+// using namespace std;
+
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
-*/
+
 
 
 // Function that returns the sum of two numbers
